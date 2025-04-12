@@ -16,7 +16,10 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['https://fq-fmbr1baev-brezzets-projects.vercel.app', 'http://localhost:3000'],
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
