@@ -254,6 +254,37 @@ const resetPassword = asyncHandler(async (req, res) => {
     });
 });
 
+// @desc    Create initial admin user
+// @route   POST /api/auth/create-initial-admin
+// @access  Public (temporary)
+const createInitialAdmin = async (req, res) => {
+    try {
+        // Check if admin already exists
+        const adminExists = await User.findOne({ isAdmin: true });
+        
+        if (adminExists) {
+            return res.status(400).json({ message: 'Admin user already exists' });
+        }
+
+        // Create admin user
+        const admin = await User.create({
+            name: 'Admin',
+            email: 'admin@admin.com',
+            password: 'admin123',
+            isAdmin: true,
+            phone: '+1234567890'
+        });
+
+        res.status(201).json({
+            message: 'Admin user created successfully',
+            email: admin.email,
+            password: 'admin123'
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating admin user', error: error.message });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
@@ -264,5 +295,6 @@ module.exports = {
     getUserById,
     updateUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    createInitialAdmin
 }; 

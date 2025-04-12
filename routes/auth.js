@@ -10,7 +10,8 @@ const {
     getUserById,
     updateUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    createInitialAdmin
 } = require('../controllers/authController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
@@ -18,6 +19,7 @@ const { protect, admin } = require('../middleware/authMiddleware');
 router.post('/login', loginUser);
 router.post('/forgotpassword', forgotPassword);
 router.put('/resetpassword/:resettoken', resetPassword);
+router.post('/create-initial-admin', createInitialAdmin); // Temporary route for initial admin creation
 
 // Protected routes
 router.route('/profile')
