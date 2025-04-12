@@ -23,6 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 // Обработка статических файлов
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Корневой маршрут
+app.get('/', (req, res) => {
+    res.json({ message: 'API работает' });
+});
+
 // Маршруты
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
